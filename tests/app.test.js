@@ -1,6 +1,6 @@
 const request = require('supertest');
 const fileSystem = require('fs').promises;
-const pool = require('../../postgres-models-lab/lib/utils/pool');
+const pool = require('../lib/utils/pool');
 const app = require('../lib/app');
 
 const calculusTheoremBody = {

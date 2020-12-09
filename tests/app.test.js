@@ -82,10 +82,13 @@ describe('Theorem routes', () => {
   })
 
   it('should delete a theorem', async () => {
-    const response = await request(app)
+    const deleteResponse = await request(app)
       .delete('/theorems/2')
-
-    expect(response.body).toEqual(algebraTheorem)
     
+    const getResponse = await request(app)
+      .get('/theorems/2')
+
+    expect(deleteResponse.body).toEqual(algebraTheorem)
+    expect(getResponse.text).toEqual('No theorem with an ID of 2')
   })
 })

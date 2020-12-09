@@ -1,0 +1,8 @@
+DROP TABLE If EXISTS theorems;
+
+CREATE TABLE theorems (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  title TEXT NOT NULL,
+  description TEXT,
+  url TEXT NOT NULL
+);

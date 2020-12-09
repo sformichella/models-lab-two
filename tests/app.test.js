@@ -3,6 +3,19 @@ const fileSystem = require('fs').promises;
 const pool = require('../../postgres-models-lab/lib/utils/pool');
 const app = require('../lib/app');
 
+const calculusTheoremBody = {
+  title: "Fundamental Theorem of Calculus",
+  description: "Describes a fundamental relationship betweem derivatives and anti-derivatives",
+  url: "https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus"
+}
+
+const calculusTheorem = {
+  id: "1",
+  title: "Fundamental Theorem of Calculus",
+  description: "Describes a fundamental relationship betweem derivatives and anti-derivatives",
+  url: "https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus"
+}
+
 
 describe('Theorem routes', () => {
 
@@ -15,21 +28,17 @@ describe('Theorem routes', () => {
 
 
   it('should create a theorem and return it', async () => {
-    const theorem = {
-      title: "Fundamental Theorem of Calculus",
-      description: "Describes a fundamental relationship betweem derivatives and anti-derivatives",
-      url: "https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus"
-    }
-
     const response = await request(app)
       .post('/make/theorem')
-      .send(theorem);
+      .send(calculusTheoremBody);
 
-    expect(response.body).toEqual({
-      id: "1",
-      title: "Fundamental Theorem of Calculus",
-      description: "Describes a fundamental relationship betweem derivatives and anti-derivatives",
-      url: "https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus"
-    })
+    expect(response.body).toEqual(calculusTheorem)
+  })
+
+  it('should return a theorem', async () => {
+    const response = await request(app)
+      .get('/theorem/1')
+
+    expect(response.body).toEqual(calculusTheorem)
   })
 })

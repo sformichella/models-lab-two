@@ -16,6 +16,19 @@ const calculusTheorem = {
   url: "https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus"
 }
 
+const algebraTheoremBody = {
+  title: "Fundamental Theorem of Algebra",
+  description: "Every polynomial with complex coefficients has a root in the complex numbers",
+  url: "https://en.wikipedia.org/wiki/Fundamental_theorem_of_algebra"
+}
+
+const algebraTheorem = {
+  id: "2",
+  title: "Fundamental Theorem of Algebra",
+  description: "Every polynomial with complex coefficients has a root in the complex numbers",
+  url: "https://en.wikipedia.org/wiki/Fundamental_theorem_of_algebra"
+}
+
 
 describe('Theorem routes', () => {
 
@@ -40,5 +53,16 @@ describe('Theorem routes', () => {
       .get('/theorem/1')
 
     expect(response.body).toEqual(calculusTheorem)
+  })
+
+  it('should return some theorems', async () => {
+    await request(app)
+      .post('/make/theorem')
+      .send(algebraTheoremBody)
+
+    const response = await request(app)
+      .get('/theorems')
+
+    expect(response.body).toEqual([calculusTheorem, algebraTheorem])
   })
 })

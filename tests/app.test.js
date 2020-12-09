@@ -40,7 +40,7 @@ describe('Theorem routes', () => {
 
   it('should create a theorem and return it', async () => {
     const response = await request(app)
-      .post('/make/theorem')
+      .post('/theorems')
       .send(calculusTheoremBody);
 
     expect(response.body).toEqual(calculusTheorem)
@@ -48,14 +48,14 @@ describe('Theorem routes', () => {
 
   it('should return a theorem', async () => {
     const response = await request(app)
-      .get('/theorem/1')
+      .get('/theorems/1')
 
     expect(response.body).toEqual(calculusTheorem)
   })
 
   it('should return some theorems', async () => {
     await request(app)
-      .post('/make/theorem')
+      .post('/theorems')
       .send(algebraTheoremBody)
 
     const response = await request(app)
@@ -66,7 +66,7 @@ describe('Theorem routes', () => {
 
   it('should update a theorem', async () => {
     const response = await request(app)
-      .post('/update/theorem/1')
+      .put('/theorems/1')
       .send({
         title: "Fundamental Theorem of Calculus Two",
         description: "Describes a fundamental relationship betweem derivatives and anti-derivatives",
@@ -79,5 +79,13 @@ describe('Theorem routes', () => {
       description: "Describes a fundamental relationship betweem derivatives and anti-derivatives",
       url: "https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus"
     })
+  })
+
+  it('should delete a theorem', async () => {
+    const response = await request(app)
+      .delete('/theorems/2')
+
+    expect(response.body).toEqual(algebraTheorem)
+    
   })
 })

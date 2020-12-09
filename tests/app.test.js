@@ -38,8 +38,6 @@ describe('Theorem routes', () => {
     await pool.query(setupSQL);
   })
 
-
-
   it('should create a theorem and return it', async () => {
     const response = await request(app)
       .post('/make/theorem')
@@ -64,5 +62,22 @@ describe('Theorem routes', () => {
       .get('/theorems')
 
     expect(response.body).toEqual([calculusTheorem, algebraTheorem])
+  })
+
+  it('should update a theorem', async () => {
+    const response = await request(app)
+      .post('/update/theorem/1')
+      .send({
+        title: "Fundamental Theorem of Calculus Two",
+        description: "Describes a fundamental relationship betweem derivatives and anti-derivatives",
+        url: "https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus"
+      })
+    
+    expect(response.body).toEqual({
+      id: "1",
+      title: "Fundamental Theorem of Calculus Two",
+      description: "Describes a fundamental relationship betweem derivatives and anti-derivatives",
+      url: "https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus"
+    })
   })
 })
